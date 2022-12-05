@@ -16,6 +16,7 @@ class PostSerializer(ModelSerializer):
         queryset=Group.objects.all(),
         required=False
     )
+
     class Meta:
         fields = (
             'id',
@@ -49,16 +50,18 @@ class GroupSerializer(ModelSerializer):
         model = Group
         fields = ('id', 'title', 'slug', 'description')
 
+
 class FollowSerializer(ModelSerializer):
     user = SlugRelatedField(
         read_only=True,
         slug_field='username',
-        default= CurrentUserDefault(),
+        default=CurrentUserDefault(),
     )
     following = SlugRelatedField(
         slug_field='username',
         queryset=User.objects.all()
     )
+
     class Meta:
         model = Follow
         fields = ('user', 'following')
@@ -68,6 +71,7 @@ class FollowSerializer(ModelSerializer):
                 fields=('user', 'following'),
             )
         ]
+
     def validate(self, data):
         if self.context['request'].user == data['following']:
             raise ValidationError(

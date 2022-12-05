@@ -29,7 +29,7 @@ class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = (IsOwnerOrReadOnly,)
     pagination_class = LimitOffsetPagination
-    
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
@@ -41,7 +41,7 @@ class CommentViewSet(ModelViewSet):
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         return post.comments
-    
+
     def perform_create(self, serializer):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         serializer.save(author=self.request.user, post=post)
@@ -56,7 +56,7 @@ class FollowViewSet(
     permission_classes = (IsAuthenticated,)
     filter_backends = (SearchFilter,)
     search_fields = ('=following__username',)
-    
+
     def perform_create(self, serializer):
         if serializer.is_valid():
             serializer.save(user=self.request.user)
