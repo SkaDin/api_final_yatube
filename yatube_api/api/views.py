@@ -21,7 +21,6 @@ from rest_framework.pagination import LimitOffsetPagination
 class GroupViewSet(ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (IsOwnerOrReadOnly,)
 
 
 class PostViewSet(ModelViewSet):
