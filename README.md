@@ -11,7 +11,7 @@
 ### Cоздать и активировать виртуальное окружение:
 
     python -m venv venv
-    source vens/Scripts/activate
+    source venv/Scripts/activate
 ### Установить зависимости из файла requirements.txt:
 
     python -m pip install --upgrade pip
